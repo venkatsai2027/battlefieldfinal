@@ -73,6 +73,8 @@
 			flex-direction: column;
 		}
 		button {
+			display: flex;
+			align-items: center;
 			width: 200px;
 			padding: 20px;
 			display: flex;
