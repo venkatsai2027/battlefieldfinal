@@ -24,16 +24,6 @@ const Center = () => {
     enemyNameTags: 'ON'
   });
 
-  const [rules, setRules] = useState({
-    tickets: 400,
-    vehicleSpawnDelay: 25,
-    bulletDamage: 100,
-    kickAfterTeamKills: 5,
-    playerHealth: 100,
-    playerRespawnTime: 100,
-    kickAfterIdle: 100,
-    banAfterKicks: 3
-  });
 
   const toggleSetting = (setting) => {
     setSettings((prevSettings) => ({
@@ -120,14 +110,14 @@ const Center = () => {
           </div>
           <div className='rules'>
             <span>RULES</span>
-            <button>TICKETS <p>{rules.tickets}</p></button>
-            <button>VEHICLE SPAWN DELAY <p>{rules.vehicleSpawnDelay}</p></button>
-            <button>BULLET DAMAGE <p>{rules.bulletDamage}</p></button>
-            <button>KICK AFTER TEAM KILLS <p>{rules.kickAfterTeamKills}</p></button>
-            <button>PLAYER HEALTH <p>{rules.playerHealth}</p></button>
-            <button>PLAYER RESPAWN TIME <p>{rules.playerRespawnTime}</p></button>
-            <button>KICK AFTER IDLE <p>{rules.kickAfterIdle}</p></button>
-            <button>BAN AFTER KICKS <p>{rules.banAfterKicks}</p></button>
+            <button>TICKETS <p>400</p></button>
+            <button>VEHICLE SPAWN DELAY <p>20</p></button>
+            <button>BULLET DAMAGE <p>40</p></button>
+            <button>KICK AFTER TEAM KILLS <p>30</p></button>
+            <button>PLAYER HEALTH <p>20</p></button>
+            <button>PLAYER RESPAWN TIME <p>100</p></button>
+            <button>KICK AFTER IDLE <p>10</p></button>
+            <button>BAN AFTER KICKS <p>100</p></button>
           </div>
         </div>
         <span>MAP ROTATION</span>
