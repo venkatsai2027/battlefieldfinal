@@ -1,0 +1,90 @@
+.sidebar {
+  width: 10px; 
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: width 0.3s;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.sidebar-open {
+  width: 200px; 
+}
+
+.sidebar-content {
+  padding: 20px;
+  .squad {
+  	display: flex;
+  	flex-direction: column;
+  	span {
+  		margin-bottom: 20px;
+  	}
+  	img {
+  		margin-bottom: 20px;
+  	}
+  	button {
+  		padding: 20px;
+  		background-color: rgba(0, 0, 0, 0.4);
+  		color: white;
+  		border: none;
+  		outline: none;
+  		border-radius: 5px;
+  		margin: 2px;
+  		margin-left: 0;
+  		width: 200px;
+
+  		&:hover {
+  			background-color: rgba(0, 0, 0, 0.8);
+  		}
+  	}
+  }
+  .online {
+  	display: flex;
+  	flex-direction: column;
+  	span {
+  		margin-top: 20px;
+  	}
+  	button {
+  		padding: 10px;
+  		background-color: rgba(0, 0, 0, 0.4);
+  		color: white;
+  		border: none;
+  		outline: none;
+  		border-radius: 5px;
+  		margin: 2px;
+  		margin-left: 0;
+  		width: 200px;
+
+  		&:hover {
+  			background-color: rgba(0, 0, 0, 0.8);
+  		}
+  	}
+  }
+
+  .offline {
+  	display: flex;
+  	flex-direction: column;
+  	span {
+  		margin-top: 20px;
+  	}
+  	button {
+  		padding: 10px;
+  		background-color: rgba(0, 0, 0, 0.4);
+  		color: white;
+  		border: none;
+  		outline: none;
+  		border-radius: 5px;
+  		margin: 2px;
+  		margin-left: 0;
+  		width: 200px;
+
+  		&:hover {
+  			background-color: rgba(0, 0, 0, 0.8);
+  		}
+  	}
+  }
+}

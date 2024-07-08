@@ -1,0 +1,36 @@
+.leftpane {
+	height: 100vh;
+	display: flex;
+/*	flex: 1;*/
+
+	.left {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		z-index: 3;
+		border-right: 2px solid beige;
+		
+		.leftimg {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			margin-top: 17vh;
+
+			img {
+				width: 25px;
+				height: 25px;
+
+			}
+		}
+		.help {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			img {
+				width: 30px;
+				height: 30px;
+			}
+		}
+
+	}
+}

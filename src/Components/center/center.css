@@ -1,0 +1,106 @@
+.centerpane {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+/*	flex: 10;*/
+	.center {
+		display: flex;
+		flex-direction: column;
+		overflow-y: scroll;
+		scrollbar-width: none;
+		.server {
+			background-color: rgba(255,255,255,0.1);
+			width: 100vh;
+			padding: 60px;
+			position: fixed;
+
+		}
+		.base{
+			margin-top: 20vh;
+			padding: 30px;
+			padding-left: 0;
+			.baseimg{
+				display: flex;
+				gap: 10px;
+			}
+	}
+	.buttons {
+		display: flex;
+		gap: 10px;
+		padding: 20px;
+		button{
+			padding: 20px;
+			width: 190px;
+			background-color: transparent;
+			border: none;
+			outline: none;
+			border-radius: 5px;
+			color: white;
+
+			&:hover{
+				background-color: green;
+			}
+		}
+	}
+	.paraa {
+		display: flex;
+		gap: 30px;
+		padding: 30px;
+	}
+	.fin {
+		display: flex;
+		gap: 20px;
+		padding: 30px;
+		.settings{
+			display: flex;
+			flex-direction: column;
+
+			select {
+				padding: 8px;
+				width: 100px;
+				background-color: transparent;
+				color: yellowgreen;
+				border: none;
+				outline: none;
+			}
+		}
+		.advanced {
+			display: flex;
+			flex-direction: column;
+		}
+		.rules {
+			display: flex;
+			flex-direction: column;
+		}
+		button {
+			width: 200px;
+			padding: 20px;
+			display: flex;
+			gap: 20px;
+			background-color: transparent;
+			border: none;
+			outline: none;
+			color: white;
+
+			&:hover {
+				background-color: rgba(0, 0, 0, 0.4);
+			}
+		}
+	}
+	span{
+		padding: 20px;
+	}
+	.maprotation {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		img {
+			opacity:0.6;
+
+			&:hover{
+				opacity: 1;
+			}
+		}
+	}
+ }
+}
