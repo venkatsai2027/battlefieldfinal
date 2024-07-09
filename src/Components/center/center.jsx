@@ -1,5 +1,6 @@
 import './center.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'; // Import axios for API requests
 
 const Center = () => {
   const countries = ["Europe", "Asia", "North America", "South America", "Africa", "Australia"];
@@ -10,7 +11,7 @@ const Center = () => {
     fairfight: 'ON',
     password: 'ON',
     preset: 'NORMAL',
-    minimap: 'ON',
+    minimap: { latitude: '', longitude: '' }, 
     squadLeaderSpawn: 'ON',
     vehicles: 'ON',
     teamBalance: 'ON',
@@ -24,16 +25,34 @@ const Center = () => {
     enemyNameTags: 'ON'
   });
 
+  useEffect(() => {
+    const fetchISSPosition = async () => {
+      try {
+        const response = await axios.get('http://api.open-notify.org/iss-now.json');
+        const { latitude, longitude } = response.data.iss_position;
+        setSettings(prevSettings => ({
+          ...prevSettings,
+          minimap: { latitude, longitude }
+        }));
+      } catch (error) {
+        console.error('Error fetching ISS position:', error);
+      }
+    };
+
+    fetchISSPosition();
+    const interval = setInterval(fetchISSPosition, 5000);
+    return () => clearInterval(interval);
+  }, []); 
 
   const toggleSetting = (setting) => {
-    setSettings((prevSettings) => ({
+    setSettings(prevSettings => ({
       ...prevSettings,
       [setting]: prevSettings[setting] === 'ON' ? 'OFF' : 'ON'
     }));
   };
 
   const handleRegionChange = (event) => {
-    setSettings((prevSettings) => ({
+    setSettings(prevSettings => ({
       ...prevSettings,
       region: event.target.value
     }));
@@ -88,17 +107,15 @@ const Center = () => {
                 ))}
               </select>
             </button>
+            <button>LATITUDE AND LONGITUDE OF VEHICLE<p>{settings.minimap.latitude}, {settings.minimap.longitude}</p></button>
             <button onClick={() => toggleSetting('punkbuster')}>PUNKBASTER <p>{settings.punkbuster}</p></button>
             <button onClick={() => toggleSetting('fairfight')}>FAIRFIGHT <p>{settings.fairfight}</p></button>
             <button onClick={() => toggleSetting('password')}>PASSWORD <p>{settings.password}</p></button>
             <button onClick={() => toggleSetting('preset')}>PRESET <p>{settings.preset}</p></button>
+            
           </div>
           <div className='advanced'>
             <span>ADVANCED</span>
-            <button onClick={() => toggleSetting('minimap')}>MINIMAP <p>{settings.minimap}</p></button>
-            <button onClick={() => toggleSetting('squadLeaderSpawn')}>ONLY SQUAD LEADER SPAWN <p>{settings.squadLeaderSpawn}</p></button>
-            <button onClick={() => toggleSetting('vehicles')}>VEHICLES <p>{settings.vehicles}</p></button>
-            <button onClick={() => toggleSetting('teamBalance')}>TEAM BALANCE <p>{settings.teamBalance}</p></button>
             <button onClick={() => toggleSetting('minimapSpotting')}>MINIMAP SPOTTING <p>{settings.minimapSpotting}</p></button>
             <button onClick={() => toggleSetting('hud')}>HUD <p>{settings.hud}</p></button>
             <button onClick={() => toggleSetting('vehicleCam')}>3D VEHICLE CAM <p>{settings.vehicleCam}</p></button>
