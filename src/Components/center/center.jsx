@@ -22,8 +22,9 @@ const Center = () => {
       });
 
       window.addEventListener('resize', () => hereMap.getViewPort().resize());
-
+      // eslint-disable-next-line no-unused-vars
       const behavior = new window.H.mapevents.Behavior(new window.H.mapevents.MapEvents(hereMap));
+      // eslint-disable-next-line no-unused-vars
       const ui = window.H.ui.UI.createDefault(hereMap, defaultLayers);
 
       setMap(hereMap);
@@ -45,8 +46,9 @@ const Center = () => {
         });
 
         window.addEventListener('resize', () => hereMinimap.getViewPort().resize());
-
+        // eslint-disable-next-line no-unused-vars
         const behavior = new window.H.mapevents.Behavior(new window.H.mapevents.MapEvents(hereMinimap));
+        // eslint-disable-next-line no-unused-vars
         const ui = window.H.ui.UI.createDefault(hereMinimap, defaultLayers);
 
         setMinimap(hereMinimap);
