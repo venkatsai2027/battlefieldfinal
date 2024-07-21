@@ -35,7 +35,7 @@ const Center = () => {
     if (minimapVisible) {
       if (!minimap && mapRefMinimap.current) {
         const platform = new window.H.service.Platform({
-          apikey: process.env.REACT_APP_HERE_API_KEY
+          apikey: "1JNqdugvWBWziMC6ndeCRaqq_6dYO7QXchzKwV_H6Vg"
         });
 
         const defaultLayers = platform.createDefaultLayers();
