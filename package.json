@@ -9,7 +9,7 @@
     "@tomtom-international/web-sdk-maps": "^6.25.0",
     "@tomtom-international/web-sdk-plugin-minimap": "^2.1.6",
     "@tomtom-international/web-sdk-services": "^6.25.0",
-    "@babel/plugin-proposal-private-property-in-object": "^4.3.10"
+    "@babel/plugin-proposal-private-property-in-object": "^4.3.10",
     "axios": "^1.7.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
