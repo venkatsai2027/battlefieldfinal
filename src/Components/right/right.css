@@ -1,5 +1,5 @@
 .sidebar {
-  width: 10px; 
+  width: 30px; /* Adjusted to make the icon visible */
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
@@ -12,79 +12,52 @@
 }
 
 .sidebar-open {
-  width: 200px; 
+  width: 300px; /* Adjusted width when expanded */
+}
+
+.icon {
+  font-size: 30px; /* Size of the icon */
+  padding: 20px; /* Space around the icon */
+  padding-left: 0px;
+  cursor: pointer; /* Indicate it's clickable */
+  text-align: center;
+  color: red;
 }
 
 .sidebar-content {
   padding: 20px;
-  .squad {
-  	display: flex;
-  	flex-direction: column;
-  	span {
-  		margin-bottom: 20px;
-  	}
-  	img {
-  		margin-bottom: 20px;
-  	}
-  	button {
-  		padding: 20px;
-  		background-color: rgba(0, 0, 0, 0.4);
-  		color: white;
-  		border: none;
-  		outline: none;
-  		border-radius: 5px;
-  		margin: 2px;
-  		margin-left: 0;
-  		width: 200px;
+  display: none; /* Hide content initially */
+}
 
-  		&:hover {
-  			background-color: rgba(0, 0, 0, 0.8);
-  		}
-  	}
-  }
-  .online {
-  	display: flex;
-  	flex-direction: column;
-  	span {
-  		margin-top: 20px;
-  	}
-  	button {
-  		padding: 10px;
-  		background-color: rgba(0, 0, 0, 0.4);
-  		color: white;
-  		border: none;
-  		outline: none;
-  		border-radius: 5px;
-  		margin: 2px;
-  		margin-left: 0;
-  		width: 200px;
+.sidebar-open .sidebar-content {
+  display: block; /* Show content when expanded */
+}
 
-  		&:hover {
-  			background-color: rgba(0, 0, 0, 0.8);
-  		}
-  	}
-  }
+.squad, .online, .offline {
+  display: flex;
+  flex-direction: column;
+}
 
-  .offline {
-  	display: flex;
-  	flex-direction: column;
-  	span {
-  		margin-top: 20px;
-  	}
-  	button {
-  		padding: 10px;
-  		background-color: rgba(0, 0, 0, 0.4);
-  		color: white;
-  		border: none;
-  		outline: none;
-  		border-radius: 5px;
-  		margin: 2px;
-  		margin-left: 0;
-  		width: 200px;
+.squad span, .online span, .offline span {
+  margin-bottom: 20px;
+}
 
-  		&:hover {
-  			background-color: rgba(0, 0, 0, 0.8);
-  		}
-  	}
-  }
+.squad img {
+  margin-bottom: 20px;
+}
+
+.squad button, .online button, .offline button {
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  margin: 2px;
+  margin-left: 0;
+  width: 200px;
+}
+
+.squad button:hover, .online button:hover, .offline button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }

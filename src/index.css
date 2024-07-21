@@ -259,8 +259,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('./images/menu__background.jpg');
-  background-size: cover;
+/*  background-image: url('./images/menu__background.jpg');*/
+  background-image: linear-gradient(rgba(16, 16, 16, .6), rgba(16, 16, 16, .6)), url('./mainbg.jpg');
+/*  background-size: cover;*/
+  background-position: 0 0, -70vh -20vh;
+  background-size: auto, 360vh;
   height: 100vh;
   color: white;
   background-repeat: no-repeat;

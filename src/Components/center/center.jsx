@@ -1,7 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './center.css';
 
 const Center = () => {
+  const mapRef = useRef(null);
+  const mapRefMinimap = useRef(null);
+  const [map, setMap] = useState(null);
+  const [minimap, setMinimap] = useState(null);
+  const [minimapVisible, setMinimapVisible] = useState(false);
+
+  useEffect(() => {
+    if (!map && mapRef.current) {
+      const platform = new window.H.service.Platform({
+        apikey: ''
+      });
+
+      const defaultLayers = platform.createDefaultLayers();
+      const hereMap = new window.H.Map(mapRef.current, defaultLayers.vector.normal.map, {
+        center: { lat: 20.5937, lng: 78.9629 },
+        zoom: 3,
+        pixelRatio: window.devicePixelRatio || 1
+      });
+
+      window.addEventListener('resize', () => hereMap.getViewPort().resize());
+
+      const behavior = new window.H.mapevents.Behavior(new window.H.mapevents.MapEvents(hereMap));
+      const ui = window.H.ui.UI.createDefault(hereMap, defaultLayers);
+
+      setMap(hereMap);
+    }
+  }, [map,minimap]);
+
+  useEffect(() => {
+    if (minimapVisible) {
+      if (!minimap && mapRefMinimap.current) {
+        const platform = new window.H.service.Platform({
+          apikey: process.env.REACT_APP_HERE_API_KEY
+        });
+
+        const defaultLayers = platform.createDefaultLayers();
+        const hereMinimap = new window.H.Map(mapRefMinimap.current, defaultLayers.vector.normal.map, {
+          center: { lat: 20.5937, lng: 78.9629 }, 
+          zoom: 3, // Adjust zoom level as needed
+          pixelRatio: window.devicePixelRatio || 1
+        });
+
+        window.addEventListener('resize', () => hereMinimap.getViewPort().resize());
+
+        const behavior = new window.H.mapevents.Behavior(new window.H.mapevents.MapEvents(hereMinimap));
+        const ui = window.H.ui.UI.createDefault(hereMinimap, defaultLayers);
+
+        setMinimap(hereMinimap);
+      }
+    } else if (minimap) {
+      // Clean up minimap when hiding
+      setMinimap(null);
+    }
+  }, [minimapVisible, minimap]);
+
   const countries = ["Europe", "Asia", "North America", "South America", "Africa", "Australia"];
 
   const [settings, setSettings] = useState({
@@ -9,7 +64,7 @@ const Center = () => {
     punkbuster: 'ON',
     fairfight: 'ON',
     password: 'ON',
-    preset: 'NORMAL',
+    preset: 'ON',
     minimap: 'ON',
     squadLeaderSpawn: 'ON',
     vehicles: 'ON',
@@ -36,6 +91,10 @@ const Center = () => {
       ...prevSettings,
       region: event.target.value
     }));
+  };
+
+  const toggleMinimap = () => {
+    setMinimapVisible((prev) => !prev);
   };
 
   return (
@@ -94,8 +153,8 @@ const Center = () => {
           </div>
           <div className='advanced'>
             <span>ADVANCED</span>
-            <button onClick={() => toggleSetting('minimap')}>MINIMAP <p>{settings.minimap}</p></button>
-            <button onClick={() => toggleSetting('squadLeaderSpawn')}>ONLY SQUAD LEADER SPAWN <p>{settings.squadLeaderSpawn}</p></button>
+            <button onClick={toggleMinimap}>MINIMAP-CLICK HERE<p>{minimapVisible ? 'ON' : 'OFF'}</p></button>
+            <button onClick={() => toggleSetting('squadLeaderSpawn')}>SQUAD LEADER SPAWN <p>{settings.squadLeaderSpawn}</p></button>
             <button onClick={() => toggleSetting('vehicles')}>VEHICLES <p>{settings.vehicles}</p></button>
             <button onClick={() => toggleSetting('teamBalance')}>TEAM BALANCE <p>{settings.teamBalance}</p></button>
             <button onClick={() => toggleSetting('minimapSpotting')}>MINIMAP SPOTTING <p>{settings.minimapSpotting}</p></button>
@@ -109,40 +168,109 @@ const Center = () => {
           </div>
           <div className='rules'>
             <span>RULES</span>
-            <button>TICKETS <p>400</p></button>
-            <button>VEHICLE SPAWN DELAY <p>20</p></button>
-            <button>BULLET DAMAGE <p>40</p></button>
-            <button>KICK AFTER TEAM KILLS <p>30</p></button>
-            <button>PLAYER HEALTH <p>20</p></button>
-            <button>PLAYER RESPAWN TIME <p>100</p></button>
-            <button>KICK AFTER IDLE <p>10</p></button>
-            <button>BAN AFTER KICKS <p>100</p></button>
+            <button>TICKETS <p><input type="number" min="1" max="100" placeholder ='0'/></p></button>
+            <button>CAR SPAWN DELAY <p><input type="number"  min="1" max="100" placeholder ='0'/></p></button>
+            <button>BULLET DAMAGE <p><input type="number"  min="1" max="100" placeholder ='0'/></p></button>
+            <button>KICK AFTER KILLS <p><input type="number" min="1" max="100" placeholder ='0'/></p></button>
+            <button>PLAYER HEALTH <p><input type="number"  min="1" max="100" placeholder ='0'/></p></button>
+            <button>RESPAWN TIME <p><input type="number"  min="1" max="100" placeholder ='0'/></p></button>
+            <button>KICK AFTER IDLE <p><input type="number"  min="1" max="100" placeholder ='0'/></p></button>
+            <button>BAN AFTER KICKS <p><input type="number"  min="1" max="100" placeholder ='0'/></p></button>
           </div>
         </div>
         <span>MAP ROTATION</span>
-        <div className='maprotation'>
-          <img src='home__server-image - 01.png' alt='' title='Place conquest 1' />
-          <img src='home__server-image - 02.png' alt='' title='Place conquest 2' />
-          <img src='home__server-image - 03.png' alt='' title='Place conquest 3' />
-          <img src='home__server-image - 04.png' alt='' title='Place conquest 4' />
-          <img src='home__server-image - 05.png' alt='' title='Place conquest 5' />
-          <img src='home__server-image - 06.png' alt='' title='Place conquest 6' />
-          <img src='home__server-image - 01.png' alt='' title='Place conquest 7' />
-          <img src='home__server-image - 02.png' alt='' title='Place conquest 8' />
-          <img src='home__server-image - 03.png' alt='' title='Place conquest 9' />
-          <img src='home__server-image - 04.png' alt='' title='Place conquest 10' />
-          <img src='home__server-image - 05.png' alt='' title='Place conquest 11' />
-          <img src='home__server-image - 06.png' alt='' title='Place conquest 12' />
-          <img src='home__server-image - 01.png' alt='' title='Place conquest 13' />
-          <img src='home__server-image - 02.png' alt='' title='Place conquest 14' />
-          <img src='home__server-image - 03.png' alt='' title='Place conquest 15' />
-          <img src='home__server-image - 04.png' alt='' title='Place conquest 16' />
-          <img src='home__server-image - 05.png' alt='' title='Place conquest 17' />
-          <img src='home__server-image - 06.png' alt='' title='Place conquest 18' />
-          <img src='home__server-image - 05.png' alt='' title='Place conquest 19' />
-          <img src='home__server-image - 06.png' alt='' title='Place conquest 20' />
-          <img src='home__server-image - 01.png' alt='' title='Place conquest 21' />
+         <div className='image-list'>
+          <div className='card'>
+            <img src='home__server-image - 01.png' alt='' title='Place conquest 1' />
+            <div className='card-title'>Place conquest 1</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 02.png' alt='' title='Place conquest 2' />
+            <div className='card-title'>Place conquest 2</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 03.png' alt='' title='Place conquest 3' />
+            <div className='card-title'>Place conquest 3</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 04.png' alt='' title='Place conquest 4' />
+            <div className='card-title'>Place conquest 4</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 05.png' alt='' title='Place conquest 5' />
+            <div className='card-title'>Place conquest 5</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 06.png' alt='' title='Place conquest 6' />
+            <div className='card-title'>Place conquest 6</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 01.png' alt='' title='Place conquest 7' />
+            <div className='card-title'>Place conquest 7</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 02.png' alt='' title='Place conquest 8' />
+            <div className='card-title'>Place conquest 8</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 03.png' alt='' title='Place conquest 9' />
+            <div className='card-title'>Place conquest 9</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 04.png' alt='' title='Place conquest 10' />
+            <div className='card-title'>Place conquest 10</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 05.png' alt='' title='Place conquest 11' />
+            <div className='card-title'>Place conquest 11</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 06.png' alt='' title='Place conquest 12' />
+            <div className='card-title'>Place conquest 12</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 01.png' alt='' title='Place conquest 13' />
+            <div className='card-title'>Place conquest 13</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 02.png' alt='' title='Place conquest 14' />
+            <div className='card-title'>Place conquest 14</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 03.png' alt='' title='Place conquest 15' />
+            <div className='card-title'>Place conquest 15</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 04.png' alt='' title='Place conquest 16' />
+            <div className='card-title'>Place conquest 16</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 05.png' alt='' title='Place conquest 17' />
+            <div className='card-title'>Place conquest 17</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 06.png' alt='' title='Place conquest 18' />
+            <div className='card-title'>Place conquest 18</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 05.png' alt='' title='Place conquest 19' />
+            <div className='card-title'>Place conquest 19</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 06.png' alt='' title='Place conquest 20' />
+            <div className='card-title'>Place conquest 20</div>
+          </div>
+          <div className='card'>
+            <img src='home__server-image - 01.png' alt='' title='Place conquest 21' />
+            <div className='card-title'>Place conquest 21</div>
+          </div>
         </div>
+        {/*<div key="mapContainer" ref={mapRef} className="mapContainer" style={{ height: '400px', width: '100%' }}></div>*/}
+        {minimapVisible && (
+          <div key="minimapContainer" className="minimapContainer">
+            <div ref={mapRefMinimap} className="minimapMap" style={{ height: '200px', width: '300px' }}></div>
+          </div>
+        )}
       </div>
     </div>
   );
